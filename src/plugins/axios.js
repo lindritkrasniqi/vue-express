@@ -3,10 +3,9 @@ import router from "@/routes";
 
 const axios = require("axios");
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "http://localhost:8000/api/";
 
-axios.defaults.headers.common["Authorization"] =
-  localStorage.getItem("token") || "";
+document.cookie = `jwt=${localStorage.getItem("jwt")}`;
 
 axios.defaults.withCredentials = true;
 
