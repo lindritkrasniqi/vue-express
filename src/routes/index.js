@@ -1,8 +1,8 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import store from "@/store";
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     {
       path: "/",
@@ -38,7 +38,8 @@ const router = createRouter({
       component: () => import("@/pages/accounts/reset"),
       name: "accounts-reset",
       beforeEnter: (to, from, next) => {
-        if (store.state.auth.loggedIn || !Object.keys(to.query).length) next({ name: "index" });
+        if (store.state.auth.loggedIn || !Object.keys(to.query).length)
+          next({ name: "index" });
         else next();
       },
     },
