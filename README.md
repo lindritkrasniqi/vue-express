@@ -2,9 +2,9 @@
 
 ## About this repository
 
-This repository provides a simple authentication UI build on Vue 3 with Bootstrap 5. You can fork this repository for your frontend application and olso if you are familiar with Laravel, you can even use backend repository on link below.
+This repository provides a simple authentication UI build on Vue 3 with Bootstrap 5. You can fork this repository for your frontend application and olso if you are familiar with ExpressJS and Mongoose, you can even use backend repository on link below.
 
-- Laravel API's [repository](http://github.com/lindritkrasniqi/sanctum-auth).
+- ExpressJS with Mongoose API's [repository](http://github.com/lindritkrasniqi/express).
 
 ## Project setup
 ```
