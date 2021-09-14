@@ -3,7 +3,7 @@ import axios from "axios";
 export const namespaced = true;
 
 export const state = () => ({
-  loggedIn: localStorage.getItem("loggedIn") || false,
+  loggedIn: localStorage.getItem("user") ? true : false,
   user: JSON.parse(localStorage.getItem("user")) || {},
 });
 
@@ -13,25 +13,16 @@ export const actions = {
   login({ commit }, credentials) {
     return new Promise((resolve, rejected) => {
       axios
-        .get("sanctum/csrf-cookie")
-        .then(() => {
+        .post("login", credentials)
+        .then((response) => {
+          localStorage.setItem("jwt", `${response.data.token}`);
+
           axios
-            .post("api/login", credentials)
+            .get("me")
             .then((response) => {
-              axios.defaults.headers.common[
-                `Authorization`
-              ] = `Bearer ${response.data.token}`;
+              commit("login", response.data.data);
 
-              localStorage.setItem("token", `Bearer ${response.data.token}`);
-
-              axios
-                .get("api/me")
-                .then((response) => {
-                  commit("login", response.data.data);
-
-                  resolve();
-                })
-                .catch((e) => rejected(e));
+              resolve();
             })
             .catch((e) => rejected(e));
         })
@@ -42,7 +33,7 @@ export const actions = {
   async logout({ commit }) {
     return new Promise((resolve, rejected) => {
       axios
-        .post("api/logout")
+        .post("logout")
         .then(() => {
           commit("logout");
 
@@ -55,7 +46,6 @@ export const actions = {
 
 export const mutations = {
   login: (state, user) => {
-    localStorage.setItem("loggedIn", true);
     localStorage.setItem("user", JSON.stringify(user));
 
     state.loggedIn = true;
@@ -64,9 +54,8 @@ export const mutations = {
   logout: (state) => {
     state.loggedIn = false;
     state.user = {};
-
-    localStorage.removeItem("loggedIn");
-    localStorage.removeItem("token");
+    
+    localStorage.removeItem("jwt");
     localStorage.removeItem("user");
   },
 };
