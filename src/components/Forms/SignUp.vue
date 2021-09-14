@@ -13,8 +13,33 @@
           :class="$store.state.errors.error.name ? 'is-invalid' : ''"
           :disabled="loading"
         />
-        <div v-if="$store.state.errors.error.name" class="invalid-feedback fw-bolder">
+        <div
+          v-if="$store.state.errors.error.name"
+          class="invalid-feedback fw-bolder"
+        >
           {{ $store.state.errors.error.name.toString() }}
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <label for="username" class="col-sm-4 col-form-label text-sm-end">
+        Username:
+      </label>
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          v-model="credentials.username"
+          id="username"
+          :class="$store.state.errors.error.username ? 'is-invalid' : ''"
+          :disabled="loading"
+        />
+        <div
+          v-if="$store.state.errors.error.username"
+          class="invalid-feedback fw-bolder"
+        >
+          {{ $store.state.errors.error.username.toString() }}
         </div>
       </div>
     </div>
@@ -32,7 +57,10 @@
           :class="$store.state.errors.error.email ? 'is-invalid' : ''"
           :disabled="loading"
         />
-        <div v-if="$store.state.errors.error.email" class="invalid-feedback fw-bolder">
+        <div
+          v-if="$store.state.errors.error.email"
+          class="invalid-feedback fw-bolder"
+        >
           {{ $store.state.errors.error.email.toString() }}
         </div>
       </div>
@@ -51,7 +79,10 @@
           :disabled="loading"
           :class="$store.state.errors.error.password ? 'is-invalid' : ''"
         />
-        <div v-if="$store.state.errors.error.password" class="invalid-feedback fw-bolder">
+        <div
+          v-if="$store.state.errors.error.password"
+          class="invalid-feedback fw-bolder"
+        >
           {{ $store.state.errors.error.password.toString() }}
         </div>
       </div>
@@ -79,7 +110,11 @@
       <label class="col-sm-4"></label>
       <div class="col-sm-8">
         <button type="submit" class="btn btn-outline-primary">
-          <div v-if="loading" class="spinner-border mx-3 spinner-border-sm" role="status">
+          <div
+            v-if="loading"
+            class="spinner-border mx-3 spinner-border-sm"
+            role="status"
+          >
             <span class="visually-hidden">Loading...</span>
           </div>
           <span v-else>Sign up</span>
@@ -87,10 +122,7 @@
       </div>
     </div>
 
-    <router-link
-      :to="{ name: 'index' }"
-      class="text-decoration-none float-end"
-    >
+    <router-link :to="{ name: 'index' }" class="text-decoration-none float-end">
       Already, have an account?
     </router-link>
   </form>
@@ -102,6 +134,7 @@ export default {
     return {
       credentials: {
         name: "",
+        username: "",
         email: "",
         password: "",
         password_confirmation: "",
@@ -119,7 +152,7 @@ export default {
       this.loading = !this.loading;
 
       this.axios
-        .post("api/register", this.credentials)
+        .post("register", this.credentials)
         .then(() =>
           this.$store
             .dispatch("auth/login", this.credentials)

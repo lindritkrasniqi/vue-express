@@ -67,7 +67,7 @@ export default {
       this.loading = !this.loading;
 
       this.axios
-        .post("api/forgot", this.credentials)
+        .post("forgot", this.credentials)
         .then(() => this.$router.push({ name: "index" }))
         .catch(() => (this.loading = !this.loading));
     },
