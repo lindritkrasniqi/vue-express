@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createRouter, createWebHistory } from "vue-router";
 import store from "@/store";
 
@@ -65,7 +66,7 @@ const router = createRouter({
     },
 
     {
-      path: "/*",
+      path: "/:pathMatch(.*)",
       component: () => import("@/layouts/error"),
       name: "error",
       meta: {
@@ -73,6 +74,9 @@ const router = createRouter({
       },
     },
   ],
+  scrollBehavior(to, from, savePosition) {
+    return { top: 0 };
+  },
 });
 
 router.beforeEach((to, from, next) => {
