@@ -4,7 +4,7 @@
     style="height: 100vh"
   >
     <div class="col text-center">
-      <div class="lead">An error occured!</div>
+      <div class="lead">{{ error.status }} | {{ error.message }}</div>
       <br />
       <router-link :to="{ name: 'index' }" class="text-decoration-none">
         Go to home
@@ -12,3 +12,19 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    error: {
+      type: Object,
+      required: false,
+      default: () => ({ message: "Not Found", status: 404 }),
+    },
+  },
+
+  beforeCreate() {
+    document.title = this.error.message;
+  },
+};
+</script>
