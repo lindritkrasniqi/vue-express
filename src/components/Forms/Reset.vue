@@ -13,12 +13,7 @@
           :class="$store.state.errors.error.password ? 'is-invalid' : ''"
           :disabled="loading"
         />
-        <div
-          v-if="$store.state.errors.error.password"
-          class="invalid-feedback fw-bolder"
-        >
-          {{ $store.state.errors.error.password.toString() }}
-        </div>
+        <input-vue :value="$store.state.errors.error.password" />
       </div>
     </div>
 
@@ -41,7 +36,11 @@
       <label class="col-sm-4"></label>
       <div class="col-sm-8">
         <button type="submit" class="btn btn-outline-primary">
-          <div v-if="loading" class="spinner-border mx-3 spinner-border-sm" role="status">
+          <div
+            v-if="loading"
+            class="spinner-border mx-3 spinner-border-sm"
+            role="status"
+          >
             <span class="visually-hidden">Loading...</span>
           </div>
           <span v-else>Save</span>
@@ -56,6 +55,8 @@
 </template>
 
 <script>
+import InputVue from "../Invalid/Input.vue";
+
 export default {
   data() {
     return {
@@ -66,6 +67,8 @@ export default {
       loading: false,
     };
   },
+
+  components: { InputVue },
 
   beforeUnmount() {
     this.$store.commit("errors/error", {});

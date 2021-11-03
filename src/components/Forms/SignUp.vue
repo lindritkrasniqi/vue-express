@@ -13,12 +13,7 @@
           :class="$store.state.errors.error.name ? 'is-invalid' : ''"
           :disabled="loading"
         />
-        <div
-          v-if="$store.state.errors.error.name"
-          class="invalid-feedback fw-bolder"
-        >
-          {{ $store.state.errors.error.name.toString() }}
-        </div>
+        <input-vue :value="$store.state.errors.error.name" />
       </div>
     </div>
 
@@ -35,12 +30,7 @@
           :class="$store.state.errors.error.username ? 'is-invalid' : ''"
           :disabled="loading"
         />
-        <div
-          v-if="$store.state.errors.error.username"
-          class="invalid-feedback fw-bolder"
-        >
-          {{ $store.state.errors.error.username.toString() }}
-        </div>
+        <input-vue :value="$store.state.errors.error.username" />
       </div>
     </div>
 
@@ -57,12 +47,7 @@
           :class="$store.state.errors.error.email ? 'is-invalid' : ''"
           :disabled="loading"
         />
-        <div
-          v-if="$store.state.errors.error.email"
-          class="invalid-feedback fw-bolder"
-        >
-          {{ $store.state.errors.error.email.toString() }}
-        </div>
+        <input-vue :value="$store.state.errors.error.email" />
       </div>
     </div>
 
@@ -79,12 +64,7 @@
           :disabled="loading"
           :class="$store.state.errors.error.password ? 'is-invalid' : ''"
         />
-        <div
-          v-if="$store.state.errors.error.password"
-          class="invalid-feedback fw-bolder"
-        >
-          {{ $store.state.errors.error.password.toString() }}
-        </div>
+        <input-vue :value="$store.state.errors.error.password" />
       </div>
     </div>
 
@@ -129,6 +109,8 @@
 </template>
 
 <script>
+import InputVue from "../Invalid/Input.vue";
+
 export default {
   data() {
     return {
@@ -142,6 +124,8 @@ export default {
       loading: false,
     };
   },
+
+  components: { InputVue },
 
   beforeUnmount() {
     this.$store.commit("errors/error", {});
