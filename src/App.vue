@@ -1,17 +1,27 @@
 <template>
-  <component :is="$route.meta.layout || 'default'">
-    <router-view />
-  </component>
+  <transition name="fade" mode="out-in">
+    <component :is="$route.meta.layout || 'default'">
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </component>
+  </transition>
 </template>
-
-<script>
-export default {
-  name: "App",
-};
-</script>
 
 <style>
 body {
   background-color: rgb(236, 236, 236);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

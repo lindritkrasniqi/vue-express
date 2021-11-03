@@ -13,12 +13,7 @@
           :class="$store.state.errors.error.email ? 'is-invalid' : ''"
           :disabled="loading"
         />
-        <div
-          v-if="$store.state.errors.error.email"
-          class="invalid-feedback fw-bolder"
-        >
-          {{ $store.state.errors.error.email.toString() }}
-        </div>
+        <input-vue :value="$store.state.errors.error.email" />
       </div>
     </div>
 
@@ -48,6 +43,8 @@
 </template>
 
 <script>
+import InputVue from "../Invalid/Input.vue";
+
 export default {
   data() {
     return {
@@ -57,6 +54,8 @@ export default {
       loading: false,
     };
   },
+
+  components: { InputVue },
 
   beforeUnmount() {
     this.$store.commit("errors/error", {});
